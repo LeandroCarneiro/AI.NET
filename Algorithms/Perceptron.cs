@@ -1,3 +1,4 @@
+
 public class Perceptron
 {
     private decimal[] Weights { get; set; }
@@ -18,7 +19,7 @@ public class Perceptron
     {
         var result = Utils.MultiplyArrays(inputs, Weights);
 
-        var sumResult = (result.Sum() / inputs.Length) + (BIAS * BiasWeight);
+        var sumResult = (result / inputs.Length) + (BIAS * BiasWeight);
 
         return sumResult;
     }
@@ -27,6 +28,11 @@ public class Perceptron
     {
         var sum = SumFunction(inputs);
         // Console.WriteLine("Sum: " + sum);
+        return ActivationFunction(sum);
+    }
+
+    private int ActivationFunction(decimal sum)
+    {
         return sum > 0 ? 1 : 0;
     }
 

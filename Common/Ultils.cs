@@ -8,15 +8,28 @@ public static class Utils
         return array1.Zip(array2, (x, y) => x + y).ToArray();
     }
 
-    public static decimal[] MultiplyArrays(decimal[] array1, decimal[] array2)
+    public static decimal MultiplyArrays(decimal[] array1, decimal[] array2)
     {
         if (array1.Length != array2.Length)
             throw new ArgumentException("Input arrays must have the same length.");
 
         var result = array1.Zip(array2, (x, y) => x * y).ToArray();
-        return result;
+        return result.Sum();
     }
 
+    public static double[][] ToJagged(double[] array, int inputsQuantity, int outputsQuantity)
+    {
+        double[][] result = new double[outputsQuantity][];
+        int index = 0;
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            for (int j = 0; j < inputsQuantity; j++)
+                result[i][j] = array[index++];
+        }
+
+        return result;
+    }
 
     public static double[] InitializeArray(int length, int minValue, int maxValue)
     {
@@ -44,5 +57,33 @@ public static class Utils
             .ToArray();
 
         return randomArray;
+    }
+
+    public static T[,] InitializeMatrix<T>(int rows, int cols, T minValue, T maxValue) where T : IConvertible
+    {
+        T[,] matrix = new T[rows, cols];
+        Random random = new Random();
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+                matrix[i, j] = (T)Convert.ChangeType(random.NextDouble() * (Convert.ToDouble(maxValue) - Convert.ToDouble(minValue)) + Convert.ToDouble(minValue), typeof(T));
+        }
+
+        return matrix;
+    }
+
+    public static T[] GetColumn<T>(T[,] matrix, int columnNumber)
+    {
+        return Enumerable.Range(0, matrix.GetLength(0))
+                .Select(x => matrix[x, columnNumber])
+                .ToArray();
+    }
+
+    public static T[] GetRow<T>(T[,] matrix, int rowNumber)
+    {
+        return Enumerable.Range(0, matrix.GetLength(1))
+                .Select(x => matrix[rowNumber, x])
+                .ToArray();
     }
 }
