@@ -11,7 +11,7 @@ public abstract class LayerBase
     {
         Nodes = new Node[quantity];
         for (int i = 0; i < quantity; i++)
-            Nodes.Append(new Node(0));
+            Nodes[i] = new Node(0);
     }
 
 

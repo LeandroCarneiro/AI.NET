@@ -13,6 +13,6 @@ public class Node
 
     public void GenerateWeights(int length)
     {
-        throw new NotImplementedException();
+        Weights = Utils.InitializeArray(length, -1, 1);
     }
 }

@@ -1,6 +1,6 @@
-public static class PerceptronFlow
+public class PerceptronFlow : BaseFlow
 {
-    public static void Flow()
+    public override void Execute()
     {
         Perceptron perceptron = new Perceptron(5, 0.6M);
 

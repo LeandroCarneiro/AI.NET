@@ -6,9 +6,13 @@
         Console.WriteLine("1 - Perceptron Backpropagation");
         var option = Console.ReadLine();
 
+        BaseFlow flow;
+
         if (option == "0")
-            PerceptronFlow.Flow();
+            flow = new PerceptronFlow();
         else
-            PerceptronBackpropagationFlow.Flow();
+            flow = new PerceptronBackpropagationFlow();
+
+        flow.Execute();
     }
 }

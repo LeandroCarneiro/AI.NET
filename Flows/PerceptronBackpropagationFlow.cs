@@ -1,6 +1,6 @@
-public static class PerceptronBackpropagationFlow
+public class PerceptronBackpropagationFlow : BaseFlow
 {
-    public static void Flow()
+    public override void Execute()
     {
         var layer1 = new Layer(3);
         var layer2 = new Layer(2);
