@@ -12,12 +12,12 @@ public class PerceptronBackpropagationFlow : BaseFlow
 
         double[][] trainingData = new double[][]
         {
-            new double[] { 1, 1, 2, 3 },
-            new double[] { 1, 3, 4, 7 },
-            new double[] { 3, 3, 6, 9 },
-            new double[] { 2, 1, 3, 4 },
-            new double[] { 12, 1, 13, 14 },
-            new double[] { 50, 60, 110, 170 },
+            new double[] { 1, 2, 3 },
+            new double[] { 3, 4, 7 },
+            new double[] { 3, 6, 9 },
+            new double[] { 1, 3, 4 },
+            new double[] { 1, 13, 14 },
+            new double[] { 60, 110, 170 },
         };
 
         int[] labels = new int[] { 5, 11, 15, 7, 27, 280 };

@@ -1,15 +1,13 @@
+
 public class PerceptronBackpropagation
 {
     private readonly double _learningRate;
     private NetworkArchtecture _network;
+    private double _error;
     public PerceptronBackpropagation(NetworkArchtecture archtecture, double learningRate)
     {
         _network = archtecture;
         _learningRate = learningRate;
-    }
-
-    public void Intialize()
-    {
     }
 
     public double[] FeedForward(double[] inputs)
@@ -19,7 +17,20 @@ public class PerceptronBackpropagation
 
     internal void Train(double[] inputs, int v)
     {
-        FeedForward(inputs);
+        do
+        {
+            var prediction = Predict(inputs);
+        } while (_error != 0);
+    }
+
+    public int Predict(double[] inputs)
+    {
+        foreach (var item in _network.Layers)
+        {
+            var sum = item.SumUp(inputs);
+        }
+
+        return 0;
     }
 
     private double[] SumUp(double[] inputs, double[][] weights)

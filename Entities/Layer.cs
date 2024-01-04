@@ -1,3 +1,4 @@
+
 public abstract class LayerBase
 {
     public Node[] Nodes { get; set; }
@@ -16,9 +17,28 @@ public abstract class LayerBase
 
 
     public abstract double[] ActivationFunction(double[] inputs);
-    public double SumUp(double[] inputs)
+    public double[,] SumUp(double[] inputs)
     {
-        return inputs.Sum();
+        var matrixW = GetMatrix();
+        double[,] matrixI = Utils.ConvertToMatrix(inputs, 1, inputs.Length);
+
+        var result = Utils.MultiplyMatrix(matrixI, matrixW);
+
+
+        return result;
+    }
+
+    private double[,] GetMatrix()
+    {
+        var matrix = new double[Nodes.Length, Nodes[0].Weights.Length];
+
+        for (int i = 0; i < Nodes.Length; i++)
+        {
+            for (int j = 0; j < Nodes[i].Weights.Length; j++)
+                matrix[i, j] = Nodes[i].Weights[j];
+        }
+
+        return matrix;
     }
 }
 

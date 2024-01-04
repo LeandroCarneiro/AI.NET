@@ -17,6 +17,45 @@ public static class Utils
         return result.Sum();
     }
 
+    public static double[,] MultiplyMatrix(double[,] matrixA, double[,] matrixB)
+    {
+        int rowsA = matrixA.GetLength(0);
+        int colsA = matrixA.GetLength(1);
+        int rowsB = matrixB.GetLength(0);
+        int colsB = matrixB.GetLength(1);
+
+        if (colsA != rowsB)
+            throw new ArgumentException("Matrix dimensions are not suitable for multiplication.");
+
+        double[,] resultMatrix = new double[rowsA, colsB];
+
+        for (int i = 0; i < rowsA; i++)
+        {
+            for (int j = 0; j < colsB; j++)
+            {
+                double sum = 0;
+                for (int k = 0; k < colsA; k++)
+                {
+                    sum += matrixA[i, k] * matrixB[k, j];
+                }
+                resultMatrix[i, j] = sum;
+            }
+        }
+
+        return resultMatrix;
+    }
+
+    public static double[,] ConvertToMatrix(double[] flat, int m, int n)
+    {
+        if (flat.Length != m * n)
+            throw new ArgumentException("Invalid length");
+
+        double[,] ret = new double[m, n];
+        // BlockCopy uses byte lengths: a double is 8 bytes
+        Buffer.BlockCopy(flat, 0, ret, 0, flat.Length * sizeof(double));
+        return ret;
+    }
+
     public static double[][] ToJagged(double[] array, int inputsQuantity, int outputsQuantity)
     {
         double[][] result = new double[outputsQuantity][];
