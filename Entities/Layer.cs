@@ -1,4 +1,6 @@
 
+
+
 public abstract class LayerBase
 {
     public Node[] Nodes { get; set; }
@@ -15,20 +17,16 @@ public abstract class LayerBase
             Nodes[i] = new Node(0);
     }
 
-
     public abstract double[] ActivationFunction(double[] inputs);
-    public double[,] SumUp(double[] inputs)
+    public abstract double[] SumUp(double[] inputs);
+
+    public void UpdateNodes(double[] inputs)
     {
-        var matrixW = GetMatrix();
-        double[,] matrixI = Utils.ConvertToMatrix(inputs, 1, inputs.Length);
-
-        var result = Utils.MultiplyMatrix(matrixI, matrixW);
-
-
-        return result;
+        for (int i = 0; i < Nodes.Length; i++)
+            Nodes[i].Value = inputs[i];
     }
 
-    private double[,] GetMatrix()
+    protected double[,] GetMatrix()
     {
         var matrix = new double[Nodes.Length, Nodes[0].Weights.Length];
 
@@ -56,6 +54,17 @@ public class Layer : LayerBase
     {
         return ActivationFunctions.Sigmoid(inputs);
     }
+
+    public override double[] SumUp(double[] inputs)
+    {
+        UpdateNodes(inputs);
+        var matrixW = GetMatrix();
+        double[,] matrixI = Utils.ConvertToMatrix(inputs, 1, inputs.Length);
+
+        var result = Utils.MultiplyMatrix(matrixI, matrixW).Cast<double>().ToArray();
+
+        return result.ToArray();
+    }
 }
 
 public class OutputLayer : LayerBase
@@ -70,6 +79,18 @@ public class OutputLayer : LayerBase
 
     public override double[] ActivationFunction(double[] inputs)
     {
+        for (int i = 0; i < inputs.Length; i++)
+        {
+            inputs[i] = Math.Tanh(inputs[i]); // Activation function (Tanh)
+        }
         return inputs;
+    }
+
+    public override double[] SumUp(double[] inputs)
+    {
+        UpdateNodes(inputs);
+        var result = new double[1] { inputs.Sum() };
+
+        return (result);
     }
 }

@@ -14,10 +14,10 @@ public class NetworkArchtecture
 
         for (int i = 0; i < Layers.Length - 1; i++)
         {
-            foreach (var item in Layers[i].Nodes)
+            for (int j = 0; j < Layers[i].Nodes.Length; j++)
             {
                 var lenNext = Layers[i + 1].Nodes.Length;
-                item.GenerateWeights(lenNext);
+                Layers[i].Nodes[j].GenerateWeights(lenNext);
             }
         }
     }
