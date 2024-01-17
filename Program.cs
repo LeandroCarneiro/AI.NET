@@ -4,7 +4,7 @@
     {
         Console.WriteLine("0 - Perceptron");
         Console.WriteLine("1 - Perceptron Backpropagation");
-        var option = Console.ReadLine();
+        var option = "1";//Console.ReadLine();
 
         BaseFlow flow;
 

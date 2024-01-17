@@ -14,11 +14,9 @@ public class NetworkArchtecture
 
         for (int i = 0; i < Layers.Length - 1; i++)
         {
+            var lenNext = Layers[i + 1].Nodes.Length;
             for (int j = 0; j < Layers[i].Nodes.Length; j++)
-            {
-                var lenNext = Layers[i + 1].Nodes.Length;
                 Layers[i].Nodes[j].GenerateWeights(lenNext);
-            }
         }
     }
 
@@ -26,6 +24,9 @@ public class NetworkArchtecture
     {
         if (Layers == null || !Layers.Any())
             throw new Exception("Add at least 3 layers including input and output");
+
+        if (Layers.FirstOrDefault() is not InputLayer)
+            throw new Exception("The first layer of your neural network must be InputLayer type");
 
         if (Layers.LastOrDefault() is not OutputLayer)
             throw new Exception("The last layer of your neural network must be OutputLayer type");

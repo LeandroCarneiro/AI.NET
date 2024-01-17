@@ -4,7 +4,10 @@ public class PerceptronBackpropagation
 {
     private readonly double _learningRate;
     private NetworkArchtecture _network;
-    private double _error;
+    public double _error = 0;
+    private double _errorMSE = 0;
+    private double _cost = 0;
+
     public PerceptronBackpropagation(NetworkArchtecture archtecture, double learningRate)
     {
         _network = archtecture;
@@ -16,42 +19,37 @@ public class PerceptronBackpropagation
         double[] output = inputs;
         foreach (var item in _network.Layers)
         {
-            Print(output);
-
-            var sum = item.SumUp(output);
-            output = item.ActivationFunction(sum);
+            item.UpdateNodes(output);
+            var result = item.ActivationFunction(output);
+            output = item.SumUp(result);
         }
-        Print(output);
 
         return output;
     }
 
     internal void Train(double[] inputs, int expected)
     {
+        // Print(inputs);
         var prediction = FeedForward(inputs).Sum();
         _error = expected - prediction;
-        double outputActivationDerivative = 1 - expected ^ 2;
 
-        Console.WriteLine("Prediction: " + prediction + " Expected: " + expected + " Error: " + _error);
-        Console.WriteLine("output Activation derivative: " + outputActivationDerivative);
+        // Console.WriteLine("Prediction: " + prediction + " Expected: " + expected + " ERROR: " + _error);
 
-        Backpropagation(outputActivationDerivative, prediction);
+        Backpropagation();
     }
 
-    private void Backpropagation(double outputActivationDerivative, double prediction)
+    private void Backpropagation()
     {
-        for (int i = _network.Layers.Length - 1; i > 0; i--)
+        // A derivada do MSE é simplesmente o erro vezes -2, dividido pelo número de exemplos
+        double delta = _error;
+
+        for (int layer = _network.Layers.Length - 2; layer > 0; layer--)
         {
-            double gradient = -2 * _error * outputActivationDerivative;
-
-            Console.WriteLine("Output Gradient: " + gradient);
-
-            for (int j = 0; j < _network.Layers[j].Nodes.Length; j++)
+            for (int node = 0; node < _network.Layers[layer].Nodes.Length; node++)
             {
-                for (int w = 0; w < _network.Layers[j].Nodes[j].Weights.Length; w++)
+                for (int i = 0; i < _network.Layers[layer].Nodes[node].Weights.Length; i++)
                 {
-                    var derivative = -2 * gradient * _network.Layers[j].Nodes[j].Weights[w];
-                    _network.Layers[j].Nodes[j].Weights[w] += _learningRate * derivative * _network.Layers[j].Nodes[j].Value;
+                    _network.Layers[layer].Nodes[node].Weights[i] -= _learningRate * delta * _network.Layers[layer].Nodes[node].Value;
                 }
             }
         }
