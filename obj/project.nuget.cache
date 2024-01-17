@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oSNVrdU0wI3bV9ldR0Ie1HjPIGlYf6vGcdnEvkZZM/+jNhc9YEeRn9b1PlmvXYJ85SOXLlW2cVineFxksdI6AA==",
+  "dgSpecHash": "IQp5gamO2ek/EmyaZB8CyeVV496KU8bIicwg9FCKzbG1qqntGtjohXi5SoVDAqFPTp1p2dZL72NVWAIn48hZqw==",
   "success": true,
   "projectFilePath": "C:\\Leandro\\Personal\\Mestrado\\Repository\\AI.NET\\AI.NET.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\leandro.carneiro\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.11\\microsoft.netcore.app.ref.7.0.11.nupkg.sha512",
-    "C:\\Users\\leandro.carneiro\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.11\\microsoft.windowsdesktop.app.ref.7.0.11.nupkg.sha512",
-    "C:\\Users\\leandro.carneiro\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.11\\microsoft.aspnetcore.app.ref.7.0.11.nupkg.sha512",
-    "C:\\Users\\leandro.carneiro\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.11\\microsoft.netcore.app.host.win-x64.7.0.11.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
